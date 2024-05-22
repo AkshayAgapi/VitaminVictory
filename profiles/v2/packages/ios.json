@@ -1,0 +1,56 @@
+{
+  "__version__": "1.0.0",
+  "builder": {
+    "common": {
+      "buildPath": "project://build",
+      "outputName": "ios",
+      "mainBundleCompressionType": "merge_dep",
+      "platform": "ios"
+    },
+    "options": {
+      "ios": {
+        "packageName": "com.cocos3d.VitaminVictory",
+        "renderBackEnd": {
+          "metal": true
+        },
+        "skipUpdateXcodeProject": false,
+        "orientation": {
+          "portrait": true,
+          "upsideDown": false,
+          "landscapeRight": false,
+          "landscapeLeft": false
+        },
+        "osTarget": {
+          "iphoneos": false,
+          "simulator": true
+        },
+        "targetVersion": "12.0",
+        "__version__": "1.0.0",
+        "developerTeam": "NG8978FTR6_5776FBCE74ACF3FB5C0C8E5579828205254E7497"
+      }
+    },
+    "taskOptionsMap": {
+      "1716379618765": {
+        "packageName": "com.cocos3d.VitaminVictory",
+        "renderBackEnd": {
+          "metal": true
+        },
+        "skipUpdateXcodeProject": false,
+        "orientation": {
+          "portrait": true,
+          "upsideDown": false,
+          "landscapeRight": false,
+          "landscapeLeft": false
+        },
+        "osTarget": {
+          "iphoneos": false,
+          "simulator": true
+        },
+        "targetVersion": "12.0",
+        "__version__": "1.0.0",
+        "developerTeam": "NG8978FTR6_5776FBCE74ACF3FB5C0C8E5579828205254E7497"
+      }
+    },
+    "__version__": "1.3.5"
+  }
+}
