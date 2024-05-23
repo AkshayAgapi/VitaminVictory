@@ -2,7 +2,7 @@
   "ver": "1.0.25",
   "importer": "image",
   "imported": true,
-  "uuid": "18369a74-74db-4152-8782-10bab3e0a68e",
+  "uuid": "234257d9-fdd8-4d6f-ae7d-22573903d18c",
   "files": [
     ".json",
     ".png"
@@ -10,19 +10,19 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "18369a74-74db-4152-8782-10bab3e0a68e@6c48a",
-      "displayName": "button_yellow",
+      "uuid": "234257d9-fdd8-4d6f-ae7d-22573903d18c@6c48a",
+      "displayName": "Cheese",
       "id": "6c48a",
       "name": "texture",
       "userData": {
-        "wrapModeS": "clamp-to-edge",
-        "wrapModeT": "clamp-to-edge",
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
         "minfilter": "linear",
         "magfilter": "linear",
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "18369a74-74db-4152-8782-10bab3e0a68e",
+        "imageUuidOrDatabaseUri": "234257d9-fdd8-4d6f-ae7d-22573903d18c",
         "visible": false
       },
       "ver": "1.0.22",
@@ -34,26 +34,26 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "18369a74-74db-4152-8782-10bab3e0a68e@f9941",
-      "displayName": "button_yellow",
+      "uuid": "234257d9-fdd8-4d6f-ae7d-22573903d18c@f9941",
+      "displayName": "Cheese",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
-        "trimType": "auto",
+        "trimType": "none",
         "trimThreshold": 1,
         "rotated": false,
         "offsetX": 0,
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 101,
-        "height": 70,
-        "rawWidth": 101,
-        "rawHeight": 70,
-        "borderTop": 36,
-        "borderBottom": 34,
-        "borderLeft": 51,
-        "borderRight": 50,
+        "width": 256,
+        "height": 256,
+        "rawWidth": 256,
+        "rawHeight": 256,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
         "packable": true,
         "pixelsToUnit": 100,
         "pivotX": 0.5,
@@ -61,17 +61,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -50.5,
-            -35,
+            -128,
+            -128,
             0,
-            50.5,
-            -35,
+            128,
+            -128,
             0,
-            -50.5,
-            35,
+            -128,
+            128,
             0,
-            50.5,
-            35,
+            128,
+            128,
             0
           ],
           "indexes": [
@@ -84,12 +84,12 @@
           ],
           "uv": [
             0,
-            70,
-            101,
-            70,
+            256,
+            256,
+            256,
             0,
             0,
-            101,
+            256,
             0
           ],
           "nuv": [
@@ -103,18 +103,18 @@
             1
           ],
           "minPos": [
-            -50.5,
-            -35,
+            -128,
+            -128,
             0
           ],
           "maxPos": [
-            50.5,
-            35,
+            128,
+            128,
             0
           ]
         },
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "18369a74-74db-4152-8782-10bab3e0a68e@6c48a",
+        "imageUuidOrDatabaseUri": "234257d9-fdd8-4d6f-ae7d-22573903d18c@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.11",
@@ -129,7 +129,7 @@
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
     "type": "sprite-frame",
-    "redirect": "18369a74-74db-4152-8782-10bab3e0a68e@f9941",
+    "redirect": "234257d9-fdd8-4d6f-ae7d-22573903d18c@f9941",
     "compressSettings": {
       "useCompressTexture": true
     }
