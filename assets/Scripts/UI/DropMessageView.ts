@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Label, Sprite, Tween, Vec3, UIOpacity, SpriteFrame } from 'cc';
+import { _decorator, Component, Node, Label, Sprite, Tween, Vec3, UIOpacity, SpriteFrame, ParticleSystem, ParticleSystem2D } from 'cc';
 const { ccclass, property } = _decorator;
 
 enum MessageType {
@@ -25,6 +25,9 @@ export class DropMessageView extends Component {
 
     @property(SpriteFrame)
     negativeSprite: SpriteFrame | null = null;
+
+    @property(ParticleSystem2D)
+    positiveParticle: ParticleSystem2D | null = null;
 
     public static MessageType = MessageType;
 
@@ -55,6 +58,9 @@ export class DropMessageView extends Component {
         if (this.icon) {
             if (type === MessageType.Positive) {
                 this.icon.spriteFrame = this.positiveSprite;
+                if (this.positiveParticle) {
+                    this.positiveParticle.resetSystem();
+                }
             } else if (type === MessageType.Negative) {
                 this.icon.spriteFrame = this.negativeSprite;
             }
@@ -90,6 +96,9 @@ export class DropMessageView extends Component {
         }
         if (this.icon) {
             this.icon.node.setScale(new Vec3(0, 0, 0));
+        }
+        if (this.positiveParticle) {
+            this.positiveParticle.stopSystem();
         }
     }
 }

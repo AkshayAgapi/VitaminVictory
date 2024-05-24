@@ -1,0 +1,14 @@
+{
+    "API_URL": "aHV2c3c/KShpeWMle35jeyh2PHB7OmAlNw==",
+    "SOCKET_URL": "d3JxOSsqcXQ4PyR8f2B6N3c/cXw=",
+    "USER_TOKEN": "user_token",
+    "LOGIN_IFRAME": false,
+    "IS_PRODUCTION": true,
+    "IS_DECODE": true,
+    "LOBBY_SCENE_NAME": "Lobby",
+    "LOGIN_SCENE_NAME": "Login",
+    "URL_CODE": "code",
+    "ENABLE_SFX": "enableSound",
+    "ENABLE_BGM": "enableBackgroundMusic",
+    "FISH_CLIENT_TYPE": 1
+}

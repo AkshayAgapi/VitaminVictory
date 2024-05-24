@@ -1,6 +1,8 @@
-import { _decorator, Component, Node, UITransform, EventTouch, Vec3, Vec2, Prefab, instantiate, director, Canvas } from 'cc';
+import { _decorator, Component, Node, UITransform, EventTouch, Vec3, Vec2, Prefab, instantiate, UIOpacity, Label, Tween } from 'cc';
 import { FoodItem } from './FoodItem/FoodItem';
 import { DropMessageView, MessageType } from './UI/DropMessageView';
+import eventTarget, { Events } from './Common/EventManager';
+import AudioManager, { SoundClipType } from './Manager/AudioManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('DragDrop')
@@ -15,9 +17,11 @@ export class DragDrop extends Component {
     @property(Prefab)
     dragItemPlaceHolder: Prefab | null = null;
 
-    //Change this to 
-    @property([DropMessageView])
+    @property(DropMessageView)
     dropMessageView: DropMessageView | null = null;
+
+    @property(Label)
+    questionVitaminLabel: Label | null = null;
 
     private selectedNode: Node | null = null;
     private initialPos: Vec3 = new Vec3();
@@ -28,9 +32,26 @@ export class DragDrop extends Component {
 
     // List of correct item IDs
     private correctItemIds: Set<string> = new Set();
+    private correctItemsMoved: number = 0;
+    private totalCorrectItems: number = 0;
 
-    Init() {
+    Init(questionVitamin: string, totalCorrectItems: number) {
+        this.correctItemsMoved = 0;
+        this.totalCorrectItems = totalCorrectItems;
         this.addDragListeners(this.dragArea);
+        this.setQuestion(questionVitamin);
+    }
+
+    setQuestion(questionVitamin: string) {
+        if (this.questionVitaminLabel) {
+            this.questionVitaminLabel.string = questionVitamin;
+
+            // Create a tween for scaling up and then back to normal
+            new Tween(this.questionVitaminLabel.node)
+                .to(0.2, { scale: new Vec3(1.2, 1.2, 1.2) }, { easing: 'quadInOut' })
+                .to(0.2, { scale: new Vec3(1, 1, 1) }, { easing: 'quadInOut' })
+                .start();
+        }
     }
 
     addDragListeners(area: Node | null) {
@@ -87,27 +108,33 @@ export class DragDrop extends Component {
 
         if (this.initialParent === this.dragArea && dropAreaBoundingBox.contains(nodePos2D)) {
             const foodItem = this.selectedNode.getComponent(FoodItem);
-            console.log("Pa pa");
-            if (foodItem && this.correctItemIds.has(foodItem.id)) {
-                console.log("Da da");
 
+            if (foodItem && this.correctItemIds.has(foodItem.id)) {
                 // Allow dropping if the item is correct
                 this.dropArea!.addChild(this.selectedNode);
-                //this.selectedNode.setPosition(dropAreaUITransform.convertToNodeSpaceAR(new Vec3(nodePos2D.x, nodePos2D.y, 0)));
+                this.correctItemsMoved += 1;
+
+                // Check if all correct items have been moved
+                if (this.correctItemsMoved >= this.totalCorrectItems) {
+                    AudioManager.Instance().playSfx(SoundClipType.VICTORY_SFX);
+                    this.dropMessageView.showMessage("Great job!", MessageType.Positive);
+                    this.scheduleOnce(() => {
+                        eventTarget.emit(Events.ALL_ITEMS_CORRECT);
+                        this.clearDropArea();  // Clear the drop area after showing the positive message
+                    }, 2); // Delay to show the positive message
+                }
+
                 this.removeDragListeners(this.selectedNode);
             } else {
-                console.log("Ma ma ");
-
                 // Reset position and log message if the item is incorrect
                 this.selectedNode.setPosition(this.initialPos);
-                this.dropMessageView.showMessage("This is a positive message!", MessageType.Positive);
+                AudioManager.Instance().playSfx(SoundClipType.FAILURE_SFX);
+                this.dropMessageView.showMessage("Wrong move!", MessageType.Negative);
                 if (this.initialParent) {
                     this.initialParent.insertChild(this.selectedNode, this.originalSiblingIndex);
                 }
             }
         } else {
-            console.log("Co CO");
-
             // Reset position if dropped outside of both areas or attempt to drag back to dragArea
             this.selectedNode.setPosition(this.initialPos);
             if (this.initialParent) {
@@ -116,19 +143,13 @@ export class DragDrop extends Component {
         }
 
         // Reset the z-index
-        //this.selectedNode.setSiblingIndex(this.originalSiblingIndex);
+        this.selectedNode.setSiblingIndex(this.originalSiblingIndex);
 
         // Destroy the placeholder
         if (this.placeholderNode) {
             this.placeholderNode.destroy();
             this.placeholderNode = null;
         }
-
-        // Restore the selected node to its initial parent
-        // if (this.initialParent) {
-        //     this.initialParent.insertChild(this.selectedNode, this.originalSiblingIndex);
-        //     this.selectedNode.setPosition(this.initialPos);
-        // }
 
         this.selectedNode = null;
 
@@ -156,5 +177,12 @@ export class DragDrop extends Component {
     // Method to set the correct item IDs
     setCorrectItemIds(correctItemIds: Set<string>) {
         this.correctItemIds = correctItemIds;
+    }
+
+    // Method to clear the drop area
+    clearDropArea() {
+        if (this.dropArea) {
+            this.dropArea.removeAllChildren();
+        }
     }
 }
